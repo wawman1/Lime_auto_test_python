@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.smoke
 def test_guest_login_in(browser):
     link = UrlPageLocators.link_auth
-    page = LoginPage(browser, link)   
+    page = LoginPage(browser, link)
     page.open()
     page.login_in()
 
