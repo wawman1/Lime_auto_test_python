@@ -7,6 +7,8 @@ def pytest_addoption(parser):
                      help="Choose browser: chrome or firefox")
     parser.addoption('--language', action='store', default="ru",
                      help="Choose language is real")
+    parser.addoption('--server', action='store', default="dev",
+                     help="Choose language is real")
 
 
 @pytest.fixture(scope="function")
@@ -31,3 +33,22 @@ def browser(request):
     yield browser
     print("\nquit browser..")
     browser.quit()
+    
+@pytest.fixture(scope="function")    
+def get_baseurl(request):
+    server_name = request.config.getoption('server')
+    if server_name == "dev":
+        print("\nstart server dev for test..")
+        base_url = 'https://vetin.front.eclipseds.ru'
+        
+    elif server_name == "stage":
+        print("\nstart server stage for test..")
+        base_url = 'http://vetin-prod-front.eclipseds.ru/'
+    
+    elif server_name == "prod":
+        print("\nstart server prod for test..")
+        base_url = 'https://limelove.ru'
+        
+    else:
+        raise pytest.UsageError("in base_page.py invalid server name, it must be dev or stage or prod")
+    return base_url

@@ -1,5 +1,5 @@
 from .pages.login_page import LoginPage
-from .pages.locators import UrlPageLocators
+from .pages.base_page import UrlPageLocators
 import pytest
 
 @pytest.mark.smoke
